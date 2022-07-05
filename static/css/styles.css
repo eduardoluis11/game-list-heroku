@@ -1,0 +1,59 @@
+/* These snippets of code will style the cookie consent banner (source: Godson Thomas from
+https://github.com/Godsont/Cookie-Consent-Banner/blob/master/style.css ) */
+.wrapper {
+  padding: 32px;
+}
+
+.cookie-container {
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  right: 0;
+  background: #2f3640;
+  color: #f5f6fa;
+  padding: 0 32px;
+  box-shadow: 0 -2px 16px rgba(47, 54, 64, 0.39);
+
+  transition: 400ms;
+}
+
+.cookie-container.active {
+  bottom: 0;
+}
+
+.cookie-container a {
+  color: #f5f6fa;
+}
+
+.cookie-btn {
+  background: #e84118;
+  border: 0;
+  color: #f5f6fa;
+  padding: 12px 48px;
+  font-size: 18px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+} /* End of the cookie consent banner's styles */
+
+/* Error message styles */
+.error-message {
+    color: red;
+}
+
+/* This will style the border for each game in the wish list table (source:
+https://www.w3schools.com/html/tryit.asp?filename=tryhtml_table_collapse .) */
+table, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+/* I wrote "20px" instead of "20 px", and the padding was added to the <td> tags. */
+td {
+    padding: 20px;
+}
+
+/* DEBUGGING CODE. DELETE LATER. */
+/* body {
+    background-color: black;
+} */

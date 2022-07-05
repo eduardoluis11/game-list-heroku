@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Log In
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <br>
+        <h1>Log In</h1>
+        <br>
+        <br>
+
+        <!-- This will display an error message if the user makes a mistake while filling in the form -->
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+
+        <!-- Turns out that I can’t simply send the form via Jinja notation to make the form appear in sign_up.html: I
+        need to first type the <form> tags in the Sign Up page, and add it its respective CSRF token. Then, inside that
+        <form> tag, I will call the form using Jinja notation.
+
+        I could use the "form.field_name" and "form.field_name.label_tag" notation in Jinja to get the name and the
+        label for that field separately. That way, I could add <br> tags to properly style the form (source:
+        Charlesthk's and John C's answers from https://stackoverflow.com/questions/5827590/css-styling-in-django-forms
+        .)
+
+        In the end, I ended up creating a regular form. That's because a regular form can hide passwords, Django's
+        forms can't (as far as I know.)
+
+        I had to change the url from "login" to "login_user", since I changed the name of the view() function,
+        and I was getting bugs because of it.-->
+        <form action="{% url 'login_user' %}" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+            </div>
+
+            <br>
+
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+
+            <br>
+            <input class="btn btn-primary" type="submit" value="Login">
+        </form>
+        <br>
+    </div>
+
+{% endblock %}

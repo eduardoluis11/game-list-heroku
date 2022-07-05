@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Delete Game
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <br>
+        <h1>Delete Game</h1>
+        <br>
+        <br>
+
+        {% for property in current_game %}
+            <p>
+                Confirm: Do you wish to delete {{property.title}} from
+                your wish list?
+            </p>
+        {% endfor %}
+        <br>
+        <br>
+
+        <!-- This is the "submit" button that will delete the current game -->
+        <form method="post">
+            {% csrf_token %}
+
+            <input class="btn btn-primary" type="submit" value="Delete">
+
+            <a href="{% url 'index' %}" class="text-decoration-none" style="padding-left: 1rem;">
+                Cancel
+            </a>
+        </form>
+
+
+
+    </div>
+{% endblock %}

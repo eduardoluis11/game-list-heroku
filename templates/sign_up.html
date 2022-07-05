@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sign Up
+{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <br>
+        <h1>Create your Account</h1>
+        <br>
+        <br>
+
+        <!-- This will display an error message if the user makes a mistake while filling in the form -->
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+
+        <!-- Turns out that I can’t simply send the form via Jinja notation to make the form appear in sign_up.html: I
+        need to first type the <form> tags in the Sign Up page, and add it its respective CSRF token. Then, inside that
+        <form> tag, I will call the form using Jinja notation.
+
+        I could use the "form.field_name" and "form.field_name.label_tag" notation in Jinja to get the name and the
+        label for that field separately. That way, I could add <br> tags to properly style the form (source:
+        Charlesthk's and John C's answers from https://stackoverflow.com/questions/5827590/css-styling-in-django-forms
+        .)
+
+        In the end, I ended up creating a regular form. That's because a regular form can hide passwords, Django's
+        forms can't (as far as I know.) -->
+        <form action="{% url 'sign_up' %}" method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+            </div>
+            <br>
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Email">
+            </div>
+            <br>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password" placeholder="Password">
+            </div>
+            <br>
+            <div class="form-group">
+                <input class="form-control" type="password" name="confirm_password" placeholder="Confirm Password">
+            </div>
+            <br>
+            <input class="btn btn-primary" type="submit" value="Create Account">
+        </form>
+        <br>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Game
+{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <br>
+        <h1>Edit Game</h1>
+        <br>
+        <br>
+
+        <p>
+            Edit this game's information.
+        </p>
+        <br>
+
+        <!-- For the form, I will copy the sign up form, and I will edit it to adjust it to the Edit page. Also, I
+        will add Jinja notation to it to pre-populate it with the data from the current game being edited.
+
+        Each input can be pre-populated if I use Jinja notation inside its "value" property. But, for the Jinja
+        notation to work, the entire form needs tobe inside of a "for" loop. -->
+        {% for property in current_game %}
+            <form method="post">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label>Title:</label>
+                    <input class="form-control" autofocus type="text" name="title" placeholder="Title"
+                    value="{{ property.title }}" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Console:</label>
+                    <input class="form-control" type="text" name="console" placeholder="Console"
+                    value="{{ property.console }}" required>
+                </div>
+                <br>
+                <div class="form-group">
+                    <label>Store:</label>
+                    <input class="form-control" type="text" name="store" placeholder="Store"
+                    value="{{ property.store }}" required>
+                </div>
+                <br>
+                <input class="btn btn-primary" type="submit" value="Update">
+
+                <a href="{% url 'index' %}" class="text-decoration-none" style="padding-left: 1rem;">
+                    Cancel
+                </a>
+            </form>
+        {% endfor %}
+
+
+
+        <br>
+
+        <!-- DEBUGGING CODE: This will print all of the properties of the game that I'm currently editing -->
+
+
+    </div>
+{% endblock %}

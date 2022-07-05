@@ -1,0 +1,92 @@
+<!-- This will call the code from the layout.html file to render the template. -->
+{% extends "layout.html" %}
+
+<!-- This is the title for the home page, which will be displayed on the browser's tab. -->
+{% block title %}
+    Game List
+{% endblock %}
+
+<!-- This will display all of the content for the home page. -->
+{% block body %}
+
+<div class="container-fluid">
+    <br>
+    <h1>Game List</h1>
+    <br>
+    <br>
+
+    <!-- I could maybe achieve what I want to do by using the “is_authenticated” decorator. By using that decorator and
+    Jinja notation, I will say that, in the home page, if the user is logged in, the should NOT be able to see a
+    summary of what Game List is, nor the links to sign up and log in. Otherwise, they should see the summary and those
+    2 links.
+
+    The Bootstrap class "text-decoration-none" will remove the underline from the "Add Game" link.
+
+    I will also render their games on their wish list.
+
+    I added Jinja notation to get a specific game's ID before sending the user to the edit page so that the
+    game's ID appears on the URL. That's done to allow me to edit the game that's on the same row as its
+    corresponding "Edit" link. -->
+    {% if user.is_authenticated %}
+
+        <p>These are the games that are currently saved on your wish list:</p>
+
+        <!-- Table that contains the games -->
+        <table>
+            <tbody>
+                {% for game in games %}
+                    <tr>
+                        <td>
+                            {{game.title}}
+                        </td>
+                        <td>
+                            {{game.console}}
+                        </td>
+                        <td>
+                            {{game.store}}
+                        </td>
+                        <td>
+                            <a href="{{game.id}}/edit" class="text-decoration-none">Edit</a>
+                            /
+                            <a href="{{game.id}}/delete" class="text-decoration-none">Delete</a>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+
+        <br>
+        <a href="{% url 'add_game' %}" class="text-decoration-none">Add New Game</a>
+
+    {% else %}
+        <!-- I will create a grid with 2 columns for large screens: The left column will have a summary of what
+        Game List is, while the right column will have the links for the user to sign up or log in to their accounts.
+        It will be a 1x2 grid (1 row, 2 columns.) -->
+        <div class="row">
+            <div class="col-sm">    <!-- Left column -->
+                <p>Welcome to Game List.</p>
+
+                <p>
+                    This is a web app made in Django that lets you keep track of all of the video games that you
+                    want to buy by adding them to a wish list.
+                </p>
+            </div>
+            <div class="col-sm">   <!-- Right column -->
+                <p>
+                    <a href="{% url 'login_user' %}">Log in</a> to begin adding games to your wish list.
+                </p>
+
+                <p>
+                    Don't have an account? <a href="{% url 'sign_up' %}">Sign up here.</a>
+                </p>
+            </div>
+        </div>  <!-- End of the summary of what Game List is -->
+    {% endif %}
+</div>
+
+
+
+{% endblock %}
